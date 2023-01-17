@@ -6,13 +6,17 @@ function client({ endpoint, query = {} }, customConfig = {}) {
     method: "GET",
     ...customConfig,
   };
-
+  console.log({ query });
   // set up mock data to reduce number of calls to api
   if (config.mock) {
     switch (endpoint) {
       case "random":
         return new Promise((resolve) => {
           resolve(mockData.random);
+        });
+      case "complexSearch":
+        return new Promise((resolve) => {
+          resolve(mockData.complexSearch);
         });
 
       default:
@@ -24,12 +28,11 @@ function client({ endpoint, query = {} }, customConfig = {}) {
 
   return window
     .fetch(
-      `https://api.spoonacular.com/recipes/${endpoint}?apiKey=${spoonacularApiKey}`,
+      `https://api.spoonacular.com/recipes/${endpoint}?apiKey=${spoonacularApiKey}&query=${query}`,
       config
     )
     .then(async (response) => {
       const data = await response.json();
-      console.log({ data });
       if (response.ok) {
         return data;
       } else {
