@@ -6,7 +6,7 @@ function client({ endpoint, query = {} }, customConfig = {}) {
     method: "GET",
     ...customConfig,
   };
-  console.log({ query });
+
   // set up mock data to reduce number of calls to api
   if (config.mock) {
     switch (endpoint) {

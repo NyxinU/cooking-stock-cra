@@ -1,6 +1,7 @@
 import React from "react";
 import { client } from "../api-client";
 import { useAsync } from "../utils/hooks";
+import { Link } from "react-router-dom";
 
 export default function DiscoverRecipies() {
   const { data, error, run, isLoading, isError, isSuccess } = useAsync();
@@ -11,7 +12,7 @@ export default function DiscoverRecipies() {
     if (!queried) {
       return;
     }
-    run(client({ endpoint: "complexSearch", query }, { mock: true }));
+    run(client({ endpoint: "complexSearch", query }));
   }, [query, queried, run]);
 
   function handleSearchSubmit(event) {
@@ -28,7 +29,9 @@ export default function DiscoverRecipies() {
       {isSuccess && (
         <ol>
           {data.results.map((result) => (
-            <li>{result.title}</li>
+            <li>
+              <Link to={`recipes/${result.id}`}>{result.title}</Link>
+            </li>
           ))}
         </ol>
       )}
