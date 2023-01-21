@@ -3,7 +3,7 @@ import { client } from "../api-client";
 import { useAsync } from "../utils/hooks";
 import { Link } from "react-router-dom";
 
-export default function DiscoverRecipies() {
+export default function DiscoverRecipesScreen() {
   const { data, error, run, isLoading, isError, isSuccess } = useAsync();
   const [query, setQuery] = React.useState();
   const [queried, setQueried] = React.useState(false);
@@ -20,7 +20,7 @@ export default function DiscoverRecipies() {
     setQueried(true);
     setQuery(event.target.elements.search.value);
   }
-  console.log({ data });
+
   return (
     <div>
       <form onSubmit={handleSearchSubmit}>
